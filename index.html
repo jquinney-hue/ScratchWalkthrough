@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Clicker in Scratch — Step by Step Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f0e8; color: #2c2c2a; line-height: 1.7; }
+
+  header {
+    background: #ff8c1a;
+    color: white;
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+  }
+  header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.4rem; }
+  header p { font-size: 1rem; opacity: 0.9; }
+
+  .progress-bar {
+    background: white;
+    border-bottom: 1px solid #e0d8cc;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .step-dot {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #e0d8cc;
+    color: #888;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  .step-dot:hover { background: #ff8c1a; color: white; }
+  .progress-bar span { font-size: 13px; color: #888; margin-left: 8px; }
+
+  main { max-width: 820px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+  .step-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e0d8cc;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #f0e8dc;
+  }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #ff8c1a;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 1.15rem; font-weight: 700; color: #2c2c2a; }
+  .step-subtitle { font-size: 0.85rem; color: #888; }
+
+  .step-body { padding: 1.5rem; }
+  .step-body p { font-size: 0.97rem; color: #444; margin-bottom: 1rem; }
+
+  .instruction-list { list-style: none; counter-reset: inst; }
+  .instruction-list li {
+    counter-increment: inst;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 0.85rem;
+    align-items: flex-start;
+    font-size: 0.96rem;
+    color: #333;
+  }
+  .instruction-list li::before {
+    content: counter(inst);
+    background: #fff3e0;
+    color: #e65100;
+    border: 1.5px solid #ffcc80;
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    font-size: 12px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .tip-box {
+    background: #e8f5e9;
+    border-left: 4px solid #43a047;
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    color: #2e7d32;
+  }
+  .tip-box strong { display: block; margin-bottom: 3px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .warning-box {
+    background: #fff8e1;
+    border-left: 4px solid #ffa000;
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+    color: #6d4c00;
+  }
+  .warning-box strong { display: block; margin-bottom: 3px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .block-visual {
+    background: #1e1e2e;
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+  }
+  .block-visual svg { display: block; }
+
+  .ui-label {
+    display: inline-block;
+    background: #e8eaf6;
+    color: #3949ab;
+    border: 1px solid #9fa8da;
+    border-radius: 5px;
+    padding: 2px 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: monospace;
+  }
+
+  .block-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    vertical-align: middle;
+  }
+  .b-motion   { background: #4c97ff; }
+  .b-looks    { background: #9966ff; }
+  .b-sound    { background: #cf63cf; }
+  .b-events   { background: #ffbf00; color: #333; }
+  .b-control  { background: #ffab19; color: #333; }
+  .b-sensing  { background: #5cb1d6; }
+  .b-operators{ background: #59c059; }
+  .b-data     { background: #ff8c1a; }
+
+  .final-card {
+    background: linear-gradient(135deg, #ff8c1a, #e65100);
+    color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .final-card h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .final-card p { opacity: 0.9; font-size: 0.95rem; }
+  .extensions { margin-top: 1.2rem; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .ext-tag {
+    background: rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.85rem;
+  }
+
+  h3 { font-size: 1rem; font-weight: 700; margin: 1.2rem 0 0.5rem; color: #2c2c2a; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .mini-card {
+    background: #faf7f2;
+    border: 1px solid #e0d8cc;
+    border-radius: 10px;
+    padding: 1rem;
+  }
+  .mini-card .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: #a08060; margin-bottom: 6px; font-weight: 700; }
+  .mini-card .value { font-size: 0.93rem; color: #333; }
+</style>
+</head>
+<body>
+
+<header>
+  <div style="font-size:3rem;margin-bottom:0.5rem;">🍪</div>
+  <h1>Cookie Clicker in Scratch</h1>
+  <p>A beginner-friendly step-by-step guide — no experience needed!</p>
+</header>
+
+<div class="progress-bar">
+  <span>Steps:</span>
+  <a class="step-dot" href="#step1">1</a>
+  <a class="step-dot" href="#step2">2</a>
+  <a class="step-dot" href="#step3">3</a>
+  <a class="step-dot" href="#step4">4</a>
+  <a class="step-dot" href="#step5">5</a>
+  <a class="step-dot" href="#step6">6</a>
+  <a class="step-dot" href="#step7">7</a>
+  <a class="step-dot" href="#step8">8</a>
+  <span style="margin-left:auto;">~30 mins</span>
+</div>
+
+<main>
+
+  <div style="background:white;border-radius:16px;border:1px solid #e0d8cc;padding:1.5rem;margin-bottom:2rem;">
+    <h2 style="font-size:1.1rem;margin-bottom:0.8rem;">What you'll build</h2>
+    <div class="two-col">
+      <div class="mini-card"><div class="label">Game goal</div><div class="value">Click a cookie to earn points. Watch your score go up!</div></div>
+      <div class="mini-card"><div class="label">You'll learn</div><div class="value">Sprites, costumes, variables, events, and loops</div></div>
+      <div class="mini-card"><div class="label">Time</div><div class="value">About 20–30 minutes</div></div>
+      <div class="mini-card"><div class="label">Where to go</div><div class="value"><a href="https://scratch.mit.edu" style="color:#e65100;">scratch.mit.edu</a> → click <strong>Create</strong></div></div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Open Scratch and set up your project</div>
+        <div class="step-subtitle">Creating a new project and removing the default cat</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <ol class="instruction-list">
+        <li>Go to <strong>scratch.mit.edu</strong> in your browser and sign in (or create a free account).</li>
+        <li>Click the orange <span class="ui-label">Create</span> button at the top of the page. A new project will open.</li>
+        <li>You'll see a white stage on the right and a grey workspace on the left. There will be a cat sprite already there — we don't need it.</li>
+        <li>In the sprite panel (bottom right), right-click the cat sprite and choose <span class="ui-label">Delete</span>. The stage will go blank.</li>
+      </ol>
+      <div class="tip-box">
+        <strong>Tip</strong>
+        If you don't see a right-click option, hover over the cat sprite in the panel — a small trash bin icon will appear in the top-right corner of the sprite thumbnail. Click it to delete.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Create the Cookie sprite</div>
+        <div class="step-subtitle">Drawing or choosing a cookie to click</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>We need a cookie on screen to click. We'll draw a simple one using Scratch's built-in paint editor.</p>
+      <ol class="instruction-list">
+        <li>Look at the bottom-right corner of the screen. Find the blue circle with a white cat silhouette — that's the <span class="ui-label">Choose a Sprite</span> button. Hover over it.</li>
+        <li>A small menu pops up with four icons. Click the <span class="ui-label">Paint</span> icon (the paintbrush).</li>
+        <li>A new blank sprite appears, and the <strong>costume editor</strong> opens on the left side of the screen.</li>
+        <li>In the costume editor toolbar, click the <strong>Circle</strong> tool (looks like an oval outline).</li>
+        <li>Pick a <strong>brown colour</strong> from the colour palette at the bottom — something like a warm chestnut brown.</li>
+        <li>Make sure the <strong>Fill</strong> option is selected (not just the outline). You can tell because the filled square icon is active at the top-left of the editor.</li>
+        <li>Hold <span class="ui-label">Shift</span> and drag to draw a circle on the canvas. Make it nice and big — roughly the size of your thumbnail.</li>
+        <li>Now pick a slightly <strong>darker brown</strong> colour. Use the Circle tool again to draw several small circles on top of the cookie — these are your chocolate chips! Make them small and scatter them around.</li>
+        <li>Click the <strong>Sprite name field</strong> at the top of the sprite panel (it probably says "Sprite1") and rename it to <strong>Cookie</strong>.</li>
+      </ol>
+      <div class="tip-box">
+        <strong>Shortcut — use a built-in sprite instead</strong>
+        If drawing isn't your thing: hover over the <span class="ui-label">Choose a Sprite</span> button and click the <strong>magnifying glass</strong> icon instead. Search for "ball" or "button" and pick something round. Then rename it "Cookie".
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Add a "clicked" costume for the cookie</div>
+        <div class="step-subtitle">Making the cookie look pressed when you click it</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>We'll make the cookie shrink slightly when clicked to give visual feedback. The easiest way is to add a second, smaller costume.</p>
+      <ol class="instruction-list">
+        <li>Make sure your Cookie sprite is selected in the sprite panel.</li>
+        <li>Click the <span class="ui-label">Costumes</span> tab at the very top-left of the screen (next to "Code" and "Sounds").</li>
+        <li>You'll see your cookie drawing listed as <strong>costume1</strong>. Right-click on it and choose <span class="ui-label">Duplicate</span>. A copy called <strong>costume2</strong> appears.</li>
+        <li>Click on <strong>costume2</strong> to select it.</li>
+        <li>Click the <span class="ui-label">Select All</span> button (or press <span class="ui-label">Ctrl+A</span>) to select everything in the costume.</li>
+        <li>Drag one of the corner handles inward to make the costume slightly smaller — about 80% of the original size. This is your "pressed" version.</li>
+      </ol>
+      <div class="tip-box">
+        <strong>Naming your costumes</strong>
+        Double-click on "costume1" in the costumes list and rename it <strong>normal</strong>. Rename "costume2" to <strong>pressed</strong>. This makes it much easier to refer to them in your code later.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Create the Score variable</div>
+        <div class="step-subtitle">Setting up a counter to track how many cookies you've clicked</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>A variable is a named box that stores a number. We'll use one called "Score" to count clicks.</p>
+      <ol class="instruction-list">
+        <li>Click the <span class="ui-label">Code</span> tab to go back to the coding area.</li>
+        <li>In the block palette on the left, click the dark orange <span class="ui-label">Variables</span> category.</li>
+        <li>Click the <span class="ui-label">Make a Variable</span> button.</li>
+        <li>A dialog box appears. Type <strong>Score</strong> as the variable name.</li>
+        <li>Make sure <strong>"For all sprites"</strong> is selected, then click <span class="ui-label">OK</span>.</li>
+        <li>You'll see a new block appear: an orange rounded block that says <strong>Score</strong>. You'll also notice a small "Score: 0" display appears on your stage — that's the live readout!</li>
+      </ol>
+      <div class="tip-box">
+        <strong>Where is the score display?</strong>
+        Look at the white stage (top right). You should see a small box with "Score 0" in it. You can drag it to any corner you like — put it in the top-left or top-right so it doesn't cover the cookie.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step5">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Code the cookie click</div>
+        <div class="step-subtitle">Adding blocks so clicking the cookie increases the score</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Now for the fun part — writing the code! Make sure the Cookie sprite is selected in the sprite panel.</p>
+      <ol class="instruction-list">
+        <li>Click the <span class="ui-label">Events</span> category (yellow blocks) in the block palette.</li>
+        <li>Drag a <span class="block-inline b-events">when this sprite clicked</span> block onto the empty grey coding area.</li>
+        <li>Click the <span class="ui-label">Looks</span> category (purple blocks).</li>
+        <li>Drag <span class="block-inline b-looks">switch costume to</span> and snap it below the click event. Click the dropdown and select <strong>pressed</strong>.</li>
+        <li>Click the <span class="ui-label">Variables</span> category (dark orange blocks).</li>
+        <li>Drag <span class="block-inline b-data">change Score by 1</span> and snap it below the costume block.</li>
+        <li>Click the <span class="ui-label">Control</span> category (light orange blocks).</li>
+        <li>Drag a <span class="block-inline b-control">wait 0.1 seconds</span> block and snap it next. Change the number to <strong>0.1</strong>.</li>
+        <li>Click <span class="ui-label">Looks</span> again. Drag another <span class="block-inline b-looks">switch costume to</span> block and snap it at the bottom. Set the dropdown to <strong>normal</strong>.</li>
+      </ol>
+
+      <div class="block-visual">
+        <svg width="280" height="240" viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg" style="font-family:Arial,sans-serif;">
+          <g transform="translate(10, 10)">
+            <path d="M0,0 c25,-22 71,-22 96,0 H180 a4,4 0 0,1 4,4 v36 a4,4 0 0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0 0,1 -4,-4 z" fill="#FFBF00" stroke="#CC9900"/>
+            <text x="18" y="28" font-size="12" fill="#333" font-weight="bold">when this sprite clicked</text>
+          </g>
+          <g transform="translate(10, 54)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H230 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#9966FF" stroke="#774DCB"/>
+            <text x="16" y="26" font-size="12" fill="white">switch costume to</text>
+            <rect x="150" y="8" width="70" height="24" rx="4" fill="#7744CC" stroke="#5533aa"/>
+            <text x="185" y="24" text-anchor="middle" font-size="11" fill="white">pressed ▾</text>
+          </g>
+          <g transform="translate(10, 98)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H210 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#FF8C1A" stroke="#cc6600"/>
+            <text x="16" y="26" font-size="12" fill="white">change Score by</text>
+            <rect x="168" y="8" width="30" height="24" rx="12" fill="white" stroke="#cc6600"/>
+            <text x="183" y="24" text-anchor="middle" font-size="12" fill="#cc6600" font-weight="bold">1</text>
+          </g>
+          <g transform="translate(10, 142)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H160 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#FFAB19" stroke="#CF8B17"/>
+            <text x="16" y="26" font-size="12" fill="white">wait</text>
+            <rect x="50" y="8" width="36" height="24" rx="12" fill="white" stroke="#CF8B17"/>
+            <text x="68" y="24" text-anchor="middle" font-size="12" fill="#CF8B17" font-weight="bold">0.1</text>
+            <text x="100" y="26" font-size="12" fill="white">seconds</text>
+          </g>
+          <g transform="translate(10, 186)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H230 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#9966FF" stroke="#774DCB"/>
+            <text x="16" y="26" font-size="12" fill="white">switch costume to</text>
+            <rect x="150" y="8" width="70" height="24" rx="4" fill="#7744CC" stroke="#5533aa"/>
+            <text x="185" y="24" text-anchor="middle" font-size="11" fill="white">normal ▾</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="warning-box">
+        <strong>Still need one more block!</strong>
+        Make sure you didn't forget instruction <strong>#9</strong> above — add a final "switch costume to normal" block at the bottom. Without it, the cookie will stay "pressed" forever after the first click.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step6">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <div>
+        <div class="step-title">Reset the score at the start</div>
+        <div class="step-subtitle">Making the game start fresh every time you press the green flag</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Right now, if you click the green flag to restart, the score carries on from where it left off. Let's fix that.</p>
+      <ol class="instruction-list">
+        <li>Make sure the Cookie sprite is still selected.</li>
+        <li>Click the <span class="ui-label">Events</span> category.</li>
+        <li>Drag a <span class="block-inline b-events">when ⚑ clicked</span> block onto the coding area. Place it to the right of your other blocks — it will be its own separate stack.</li>
+        <li>Click the <span class="ui-label">Variables</span> category.</li>
+        <li>Drag <span class="block-inline b-data">set Score to 0</span> and snap it below the green flag block.</li>
+        <li>Click the <span class="ui-label">Looks</span> category.</li>
+        <li>Drag <span class="block-inline b-looks">switch costume to normal</span> and snap it at the bottom — this makes sure the cookie starts in its normal (not pressed) state.</li>
+      </ol>
+
+      <div class="block-visual">
+        <svg width="230" height="150" viewBox="0 0 230 150" xmlns="http://www.w3.org/2000/svg" style="font-family:Arial,sans-serif;">
+          <g transform="translate(10, 10)">
+            <path d="M0,0 c25,-22 71,-22 96,0 H140 a4,4 0 0,1 4,4 v36 a4,4 0 0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0 0,1 -4,-4 z" fill="#FFBF00" stroke="#CC9900"/>
+            <text x="18" y="28" font-size="12" fill="#333" font-weight="bold">when ⚑ clicked</text>
+          </g>
+          <g transform="translate(10, 54)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H170 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#FF8C1A" stroke="#cc6600"/>
+            <text x="16" y="26" font-size="12" fill="white">set Score to</text>
+            <rect x="126" y="8" width="30" height="24" rx="12" fill="white" stroke="#cc6600"/>
+            <text x="141" y="24" text-anchor="middle" font-size="12" fill="#cc6600" font-weight="bold">0</text>
+          </g>
+          <g transform="translate(10, 98)">
+            <path d="M0,4 A4,4 0,0,1 4,0 H12 c2,0 3,1 4,2 l4,4 c1,1 2,2 4,2 h12 c2,0 3,-1 4,-2 l4,-4 c1,-1 2,-2 4,-2 H220 a4,4 0,0,1 4,4 v36 a4,4 0,0,1 -4,4 H48 c-2,0 -3,1 -4,2 l-4,4 c-1,1 -2,2 -4,2 h-12 c-2,0 -3,-1 -4,-2 l-4,-4 c-1,-1 -2,-2 -4,-2 H4 a4,4 0,0,1 -4,-4 z" fill="#9966FF" stroke="#774DCB"/>
+            <text x="16" y="26" font-size="12" fill="white">switch costume to</text>
+            <rect x="152" y="8" width="62" height="24" rx="4" fill="#7744CC" stroke="#5533aa"/>
+            <text x="183" y="24" text-anchor="middle" font-size="11" fill="white">normal ▾</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step7">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <div>
+        <div class="step-title">Add a background</div>
+        <div class="step-subtitle">Making the stage look like a proper game screen</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <p>Right now the stage is plain white. Let's add a simple background to make it feel more like a game.</p>
+      <ol class="instruction-list">
+        <li>Look at the bottom-right of the screen. Below the sprite panel, there's a tiny stage icon labelled <strong>Stage</strong>. Click on it.</li>
+        <li>Now look at the bottom-right corner — hover over the <span class="ui-label">Choose a Backdrop</span> button (it looks like a landscape photo icon).</li>
+        <li>Click the <span class="ui-label">magnifying glass</span> icon to search the built-in library.</li>
+        <li>Search for <strong>kitchen</strong> or <strong>blue sky</strong> or <strong>neon tunnel</strong> — pick anything that looks fun.</li>
+        <li>Click on a backdrop to add it. It will instantly appear behind your cookie on the stage.</li>
+      </ol>
+      <div class="tip-box">
+        <strong>Paint your own backdrop</strong>
+        Instead of searching, you can hover over the backdrop button and click the <strong>paintbrush</strong> icon to draw your own. A simple colour fill (use the paint bucket tool) is quick and effective — try a warm tan colour to match a bakery theme!
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="step8">
+    <div class="step-header">
+      <div class="step-num">8</div>
+      <div>
+        <div class="step-title">Test your game and add a click sound</div>
+        <div class="step-subtitle">Playing it for the first time and adding audio feedback</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <h3>Testing</h3>
+      <ol class="instruction-list">
+        <li>Click the <strong>green flag</strong> above the stage. Your score should reset to 0.</li>
+        <li>Click the cookie on the stage. The score should go up by 1 each time! The cookie should briefly switch to the "pressed" costume.</li>
+        <li>If the score isn't going up, check that you selected your Cookie sprite in the sprite panel before writing the code in Step 5.</li>
+      </ol>
+
+      <h3>Adding a click sound (bonus!)</h3>
+      <ol class="instruction-list">
+        <li>Select the <strong>Cookie</strong> sprite in the sprite panel.</li>
+        <li>Click the <span class="ui-label">Sounds</span> tab at the top.</li>
+        <li>Hover over the speaker icon (bottom-left) and click the <strong>magnifying glass</strong> to search sounds.</li>
+        <li>Search for <strong>"pop"</strong> and add it to your sprite.</li>
+        <li>Go back to the <span class="ui-label">Code</span> tab. Click the <span class="ui-label">Sound</span> category (pink/purple blocks).</li>
+        <li>Drag <span class="block-inline b-sound">start sound Pop</span> and snap it right after the <span class="block-inline b-events">when this sprite clicked</span> block (before the costume switch).</li>
+      </ol>
+
+      <div class="tip-box">
+        <strong>Troubleshooting checklist</strong>
+        Cookie not responding to clicks? Make sure: (1) you selected the Cookie sprite before coding, (2) you used "when this sprite clicked" not "when ⚑ clicked", (3) the green flag has been pressed to start the game.
+      </div>
+    </div>
+  </div>
+
+  <div class="step-card" id="summary">
+    <div class="step-header">
+      <div class="step-num" style="background:#43a047;">✓</div>
+      <div>
+        <div class="step-title">Your complete code — at a glance</div>
+        <div class="step-subtitle">Both scripts that should be on your Cookie sprite</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="two-col">
+        <div>
+          <p style="font-weight:700;margin-bottom:0.5rem;">Script 1: On green flag</p>
+          <div style="background:#faf7f2;border-radius:10px;border:1px solid #e0d8cc;padding:1rem;font-size:0.88rem;line-height:2;">
+            <span class="block-inline b-events">when ⚑ clicked</span><br>
+            <span class="block-inline b-data">set Score to 0</span><br>
+            <span class="block-inline b-looks">switch costume to normal</span>
+          </div>
+        </div>
+        <div>
+          <p style="font-weight:700;margin-bottom:0.5rem;">Script 2: On click</p>
+          <div style="background:#faf7f2;border-radius:10px;border:1px solid #e0d8cc;padding:1rem;font-size:0.88rem;line-height:2;">
+            <span class="block-inline b-events">when this sprite clicked</span><br>
+            <span class="block-inline b-sound">start sound Pop</span><br>
+            <span class="block-inline b-looks">switch costume to pressed</span><br>
+            <span class="block-inline b-data">change Score by 1</span><br>
+            <span class="block-inline b-control">wait 0.1 seconds</span><br>
+            <span class="block-inline b-looks">switch costume to normal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="final-card">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">🎉</div>
+    <h2>Your Cookie Clicker is done!</h2>
+    <p>Press the green flag and start clicking. Want to go further? Try these upgrades:</p>
+    <div class="extensions">
+      <span class="ext-tag">⏱ Add a 30-second timer</span>
+      <span class="ext-tag">✨ Animate a sparkle effect on click</span>
+      <span class="ext-tag">🏪 Add a shop to buy auto-clickers</span>
+      <span class="ext-tag">🔔 Play a fanfare at 100 cookies</span>
+      <span class="ext-tag">🎨 Add multiple cookie types</span>
+      <span class="ext-tag">📊 Track your high score</span>
+    </div>
+  </div>
+
+</main>
+</body>
+</html>
